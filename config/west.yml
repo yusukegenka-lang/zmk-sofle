@@ -1,39 +1,56 @@
 manifest:
+  version: 1.2
+  defaults:
+    remote: cormoran
+    revision: main
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
     - name: cormoran
       url-base: https://github.com/cormoran
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+    - name: tokyo2006
+      url-base: https://github.com/tokyo2006
+
   projects:
-    - name: eyelash_sofle
-      url: https://github.com/a741725193/zmk-sofle
-      revision: main
     - name: zmk
       remote: cormoran
-      revision: v0.3-branch+dya
+      revision: main+dya
       import: app/west.yml
+      clone-depth: 1
+    - name: zephyr
+      remote: tokyo2006
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart+zmk-backports
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+          - chre
+    # ---- ZMK 4.1 DYA feature modules ----
     - name: zmk-behavior-runtime-sensor-rotate
-      remote: cormoran
-      revision: main
     - name: zmk-module-ble-management
-      remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-module-battery-history
-      remote: cormoran
-      revision: main
     - name: zmk-module-settings-rpc
-      remote: cormoran
-      revision: main
     - name: zmk-module-runtime-input-processor
-      remote: cormoran
-      revision: zmk-v0.3.0.0
+    - name: zmk-feature-custom-settings
     - name: zmk-feature-runtime-macro
-      remote: cormoran
-      revision: main
       import: true
     - name: zmk-feature-runtime-combo
-      remote: cormoran
-      revision: main
       import: true
   self:
     path: config
